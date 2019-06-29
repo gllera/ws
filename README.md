@@ -9,5 +9,5 @@ docker run --privileged -d --init -p 2222:22 -v one-home:/home/one -v one-docker
 # pass: one
 ssh -p 2222 one@localhost
 
-(notice that you will have another docker daemon running independently inside this container)
+(notice that you will get another docker daemon running independently inside this container)
 ```
