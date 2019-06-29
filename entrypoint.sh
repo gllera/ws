@@ -17,7 +17,7 @@ set_proxy() {
    fi
 }
 
-[[ ! -v WS_NO_PROXY ]] && set_proxy
+[[ -v WS_USE_PROXY ]] && set_proxy
 
 find /run /var/run -iname 'docker*.pid' -delete
 /usr/sbin/sshd
