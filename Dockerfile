@@ -74,6 +74,10 @@ RUN  yum -y update \
  &&  rm -rf /var/cache/yum \
  &&  rm -rf /tmp/*
 
+COPY  --from=binaries /usr/local /usr/local
+COPY  zsh/* entrypoint.sh /etc/
+COPY  dind                /usr/local/bin/
+
 RUN  groupadd -g 498 docker \
  &&  groupadd -g 499 dockremap \
  &&  useradd  -g dockremap -u 499 dockremap \
@@ -84,13 +88,7 @@ RUN  groupadd -g 498 docker \
  &&  echo "one ALL=(ALL) NOPASSWD: ALL"   >> /etc/sudoers \
  &&  echo "one:one" | chpasswd \
  &&  ln -s /usr/local/bin/nvim      /usr/local/bin/vim \
- &&  ln -s /usr/local/bin/python3.7 /usr/local/bin/python3 \
- &&  ln -s /usr/local/bin/pip3.7    /usr/local/bin/pip3
-
-COPY  --from=binaries /usr/local /usr/local
-
-COPY  zsh/* entrypoint.sh /etc/
-COPY  dind                /usr/local/bin/
+ &&  chsh -s /usr/local/bin/zsh one
 
 EXPOSE 2375
 EXPOSE 22
