@@ -19,6 +19,7 @@ set_proxy() {
 
 [[ -v WS_USE_PROXY ]] && set_proxy
 [[ -v WS_SHELL     ]] && chsh -s $(which $WS_SHELL) one
+[[ -f /etc/ssh/ssh_host_rsa_key ]] || ssh-keygen -q -t rsa -N '' -f /etc/ssh/ssh_host_rsa_key
 
 find /run /var/run -iname 'docker*.pid' -delete
 /usr/sbin/sshd
