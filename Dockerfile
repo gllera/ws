@@ -69,7 +69,7 @@ RUN  for i in *; do tar xvfk $i -C /; done
 FROM base
 
 RUN  yum -y update \
- &&  yum -y install openssh-server which sudo sshpass btrfs-progs e2fsprogs e2fsprogs-extra iptables xfsprogs xz pigz zfs \
+ &&  yum -y install openssh-server which sudo sshpass btrfs-progs e2fsprogs e2fsprogs-extra iptables xfsprogs xz pigz zfs words \
  &&  yum clean all \
  &&  rm -rf /var/cache/yum \
  &&  rm -rf /tmp/*
@@ -90,7 +90,9 @@ RUN  groupadd -g 498 docker \
  &&  echo "one ALL=(ALL) NOPASSWD: ALL"   >> /etc/sudoers \
  &&  echo "one:one" | chpasswd \
  &&  ln -s /usr/local/bin/nvim      /usr/local/bin/vim \
- &&  chsh -s /usr/local/bin/zsh one
+ &&  chsh -s /usr/local/bin/zsh one \
+ &&  /usr/local/bin/python3 -m pip install --upgrade pip \
+ &&  /usr/local/bin/python3 -m pip install pynvim
 
 EXPOSE 2375
 EXPOSE 22
