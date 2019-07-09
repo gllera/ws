@@ -4,7 +4,7 @@ RUN  yum -y install https://centos7.iuscommunity.org/ius-release.rpm \
  &&  yum -y update \
  &&  yum -y groupinstall "Development tools" \
  &&  yum -y remove git rsync \
- &&  yum -y install wget git2u rsync glibc-static ncurses-devel pcre-devel xz-devel zlib-devel libffi-devel libevent-devel libevent fuse-libs fuse \
+ &&  yum -y install wget git2u rsync libevent fuse-libs fuse glibc-static ncurses-devel pcre-devel xz-devel zlib-devel libffi-devel libevent-devel bzip2-devel openssl-devel sqlite-devel readline-devel tk-devel gdbm-devel db4-devel libpcap-devel \
  &&  yum clean all \
  &&  rm -rf /var/cache/yum \
  &&  rm -rf /tmp/*
