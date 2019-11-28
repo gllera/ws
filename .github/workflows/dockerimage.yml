@@ -1,0 +1,21 @@
+name: Docker Image CI
+
+on: [push]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Build the Docker image
+      run: |
+        IMAGE=docker.pkg.github.com/gllera/ws/master
+        IMAGE2=gllera/ws
+        echo ${{ secrets.TOKEN }} | docker login docker.pkg.github.com --username gllera --password-stdin
+        echo ${{ secrets.TOKEN_DOCKER }} | docker login --username gllera --password-stdin
+        docker build . --tag $IMAGE --tag $IMAGE2
+        docker push $IMAGE
+        docker push $IMAGE2
