@@ -49,7 +49,7 @@ RUN  cd */ && make install
 RUN  tar cvf root.tar /usr/local
 
 FROM builder AS python3
-RUN  wget https://www.python.org/ftp/python/3.8.0/Python-3.8.0.tar.xz
+RUN  wget https://www.python.org/ftp/python/3.7.4/Python-3.7.4.tar.xz
 RUN  tar xvf *
 RUN  cd */ && ./configure --enable-optimizations --with-ensurepip=install
 RUN  cd */ && make -j4
