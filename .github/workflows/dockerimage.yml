@@ -6,20 +6,17 @@ on:
       - master
 
 jobs:
-
   build:
-
     runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v1
     - name: Build the Docker image
       run: |
-        BRANCH=${GITHUB_REF##*/}
-        IMAGE=docker.pkg.github.com/gllera/ws/$BRANCH:latest
+        IMAGE1=docker.pkg.github.com/gllera/ws/ws
         IMAGE2=gllera/ws
         echo ${{ secrets.TOKEN }} | docker login docker.pkg.github.com --username gllera --password-stdin
         echo ${{ secrets.TOKEN_DOCKER }} | docker login --username gllera --password-stdin
-        docker build . --tag $IMAGE --tag $IMAGE2
+        docker build . --tag $IMAGE1 --tag $IMAGE2
+        docker push $IMAGE1
         docker push $IMAGE2
-        docker push $IMAGE
