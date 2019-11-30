@@ -28,7 +28,7 @@ FROM builder AS ag
 RUN  wget https://geoff.greer.fm/ag/releases/the_silver_searcher-2.2.0.tar.gz
 RUN  tar xvf *
 RUN  cd */ && ./configure
-RUN  cd */ && make -j4
+RUN  cd */ && make -j `nproc`
 RUN  cd */ && make install
 RUN  tar cvf root.tar /usr/local
 
@@ -36,7 +36,7 @@ FROM builder AS tmux
 RUN  wget https://github.com/tmux/tmux/releases/download/3.0/tmux-3.0.tar.gz
 RUN  tar xvf *
 RUN  cd */ && ./configure
-RUN  cd */ && make -j4
+RUN  cd */ && make -j `nproc`
 RUN  cd */ && make install
 RUN  tar cvf root.tar /usr/local
 
@@ -44,15 +44,15 @@ FROM builder AS zsh
 RUN  wget http://www.zsh.org/pub/zsh-5.7.1.tar.xz
 RUN  tar xvf *
 RUN  cd */ && ./configure --with-tcsetpgrp
-RUN  cd */ && make -j4
+RUN  cd */ && make -j `nproc`
 RUN  cd */ && make install
 RUN  tar cvf root.tar /usr/local
 
 FROM builder AS python3
-RUN  wget https://www.python.org/ftp/python/3.7.4/Python-3.7.4.tar.xz
+RUN  wget https://www.python.org/ftp/python/3.8.0/Python-3.8.0.tar.xz
 RUN  tar xvf *
-RUN  cd */ && ./configure --enable-optimizations --with-ensurepip=install
-RUN  cd */ && make -j4
+RUN  cd */ && ./configure --with-lto --enable-optimizations --with-ensurepip=yes
+RUN  cd */ && make -j `nproc`
 RUN  cd */ && make install
 RUN  tar cvf root.tar /usr/local
 
