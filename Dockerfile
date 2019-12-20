@@ -1,10 +1,10 @@
-FROM debian:8 AS base
+FROM debian:10 AS base
 
 RUN  export DEBIAN_FRONTEND=noninteractive \
  &&  apt-get update \
  &&  apt-get install -y apt-utils dialog man-db manpages glibc-doc \
  &&  apt-get install -y git rsync silversearcher-ag zsh sshpass python3 python3-pip \
- &&  apt-get install -y sudo iptables apt-transport-https fuse wget curl openssh-server python3-neovim build-essential libevent-dev libncurses5-dev wamerican \
+ &&  apt-get install -y sudo iptables-legacy apt-transport-https fuse wget curl openssh-server python3-neovim build-essential libevent-dev libncurses5-dev wamerican \
  &&  python3 -m pip install pynvim
 
 FROM base as builder
