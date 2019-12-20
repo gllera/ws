@@ -3,7 +3,8 @@ FROM debian:10 AS base
 RUN  export DEBIAN_FRONTEND=noninteractive \
  &&  apt-get update \
  &&  apt-get install -y apt-utils dialog man-db manpages glibc-doc \
- &&  apt-get install -y sudo iptables git rsync wget fuse silversearcher-ag zsh openssh-server sshpass python3 python3-pip python3-neovim build-essential libevent-dev libncurses5-dev \
+ &&  apt-get install -y git rsync silversearcher-ag zsh sshpass python3 python3-pip \
+ &&  apt-get install -y sudo iptables apt-transport-https fuse wget curl openssh-server python3-neovim build-essential libevent-dev libncurses5-dev wamerican \
  &&  python3 -m pip install pynvim
 
 FROM base as builder
@@ -53,7 +54,7 @@ RUN  groupadd -g 498 docker \
  &&  echo "one ALL=(ALL) NOPASSWD: ALL"   >> /etc/sudoers \
  &&  echo "one:one" | chpasswd \
  &&  rm -f /etc/update-motd.d/* /etc/motd \
- &&  ln -s /usr/local/bin/nvim      /usr/local/bin/vim \
+ &&  ln -s /usr/local/bin/nvim /usr/local/bin/vim \
  &&  chsh -s /usr/bin/zsh one \
  &&  mkdir -p /var/run/sshd \
  &&  sed -i 's/#GatewayPorts.*/GatewayPorts clientspecified/' /etc/ssh/sshd_config \
