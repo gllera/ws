@@ -1,4 +1,4 @@
-FROM debian:10 AS base
+FROM debian:8 AS base
 
 RUN  export DEBIAN_FRONTEND=noninteractive \
  &&  apt-get update \
