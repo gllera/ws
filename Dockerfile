@@ -5,7 +5,7 @@ RUN  export DEBIAN_FRONTEND=noninteractive \
  &&  apt-get install -y apt-utils dialog man-db manpages glibc-doc \
  &&  apt-get install -y git rsync silversearcher-ag zsh sshpass python3 python3-pip \
  &&  apt-get install -y sudo iptables apt-transport-https fuse wget curl openssh-server python3-neovim build-essential libevent-dev libncurses5-dev wamerican \
- &&  update-alternatives --set iptables /usr/sbin/iptables-legacy
+ &&  update-alternatives --set iptables /usr/sbin/iptables-legacy \
  &&  python3 -m pip install pynvim
 
 FROM base as builder
