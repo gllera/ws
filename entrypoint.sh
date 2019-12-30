@@ -27,6 +27,4 @@ EOF
 [[ -v WS_SHELL     ]] && chsh -s $(which $WS_SHELL) one
 [[ -f /etc/ssh/ssh_host_rsa_key ]] || ssh-keygen -q -t rsa -N '' -f /etc/ssh/ssh_host_rsa_key
 
-find /run /var/run -iname 'docker*.pid' -delete
-/usr/sbin/sshd
-exec /usr/local/bin/dind dockerd --storage-driver=overlay2 --host=unix:///var/run/docker.sock --host=tcp://0.0.0.0:2375
+exec /usr/sbin/sshd -D
