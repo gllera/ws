@@ -38,12 +38,19 @@ COPY  --from=nvim    /app/root.tar nvim.tar
 RUN  for i in *; do tar xvfk $i -C /; done
 RUN  chown -R root:root /usr/local
 
+
 FROM base
 COPY  --from=binaries /usr/local /usr/local
+COPY  dind                       /usr/local/bin/
 COPY  entrypoint.sh              /etc/
 
-RUN  groupadd -g 1000 one \
- &&  useradd  -g one -rmd /home/one -u 1000 one \
+RUN  groupadd -g 498 docker \
+ &&  groupadd -g 499 dockremap \
+ &&  groupadd -g 1000 one \
+ &&  useradd  -g dockremap -u 499 dockremap \
+ &&  useradd  -g one -G docker -rmd /home/one -u 1000 one \
+ &&  echo "dockremap:165536:65536"        >> /etc/subuid \
+ &&  echo "dockremap:165536:65536"        >> /etc/subgid \
  &&  echo "one ALL=(ALL) NOPASSWD: ALL"   >> /etc/sudoers \
  &&  echo "one:one" | chpasswd \
  &&  rm -f /etc/update-motd.d/* /etc/motd \
@@ -52,6 +59,7 @@ RUN  groupadd -g 1000 one \
  &&  mkdir -p /var/run/sshd \
  &&  sed -i 's/#GatewayPorts.*/GatewayPorts clientspecified/' /etc/ssh/sshd_config \
  &&  mandb
+
 
 EXPOSE 2375
 EXPOSE 22
