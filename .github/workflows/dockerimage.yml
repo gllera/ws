@@ -13,8 +13,8 @@ jobs:
     - uses: actions/checkout@v1
     - name: Build the Docker image
       run: |
-        IMAGE1=docker.pkg.github.com/gllera/ws/ws:1.0
-        IMAGE2=gllera/ws:1.0
+        IMAGE1=docker.pkg.github.com/gllera/ws/ws:2.0
+        IMAGE2=gllera/ws:2.0
         echo ${{ secrets.TOKEN }} | docker login docker.pkg.github.com --username gllera --password-stdin
         echo ${{ secrets.TOKEN_DOCKER }} | docker login --username gllera --password-stdin
         docker build . --tag $IMAGE1 --tag $IMAGE2

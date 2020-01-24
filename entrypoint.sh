@@ -13,7 +13,13 @@ set_proxy() {
          echo "$i=$PROXY" >> /etc/environment
       done
 
-      echo "proxy=$PROXY" >> /etc/yum.conf
+      cat <<EOF > /etc/apt/apt.conf.d/proxy.conf
+Acquire {
+  HTTP::proxy "$PROXY";
+  HTTPS::proxy "$PROXY";
+}
+EOF
+
    fi
 }
 
