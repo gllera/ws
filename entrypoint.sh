@@ -5,16 +5,14 @@ set_proxy() {
    local VARS="http_proxy https_proxy HTTP_PROXY HTTPS_PROXY"
 
    for i in $VARS; do
-      eval "export $i=$PROXY"
+      VAL="$i=$PROXY"
+
+      eval "export $VAL"
+      grep -qF -- "$VAL" "/etc/environment" || echo "$VAL" >> "/etc/environment"
    done
 
-   if [[ ! -s /etc/environment ]]; then
-      for i in $VARS; do
-         echo "$i=$PROXY" >> /etc/environment
-      done
-
-      echo "proxy=$PROXY" >> /etc/yum.conf
-   fi
+   VAL="proxy=$PROXY"
+   grep -qF -- "$VAL" "/etc/yum.conf" || echo "$VAL" >> "/etc/yum.conf"
 }
 
 [[ -v WS_USE_PROXY ]] && set_proxy
